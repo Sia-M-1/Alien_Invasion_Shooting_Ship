@@ -4,7 +4,7 @@ class Ship():
         self.screen = screen
         self.ai_settings = ai_settings
     # Загрузка изображения корабля и получение прямоугольника.
-        self.image = pygame.transform.scale(pygame.image.load('ship.png'), (100, 100))
+        self.image = pygame.transform.scale(pygame.image.load('ship.png'), (150, 150))
         self.rect = self.image.get_rect()
         self.screen_rect = screen.get_rect()
         # Каждый новый корабль появляется у нижнего края экрана.
@@ -24,3 +24,6 @@ class Ship():
         self.rect.centerx = self.center
     def blitme(self):
         self.screen.blit(self.image, self.rect)
+    def center_ship(self):
+        """Размещает корабль в центре нижней стороны."""
+        self.center = self.screen_rect.centerx
