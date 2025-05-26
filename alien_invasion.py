@@ -2,6 +2,7 @@ import sys
 import pygame
 from settings import Settings
 from game_stats import GameStats
+from scoreboard import Scoreboard
 from button import Button
 from ship import Ship
 from alien import Alien
@@ -16,8 +17,9 @@ def run_game():
     pygame.display.set_caption("Alien Invasion")
     # Создание кнопки Play.
     play_button = Button(ai_settings, screen, "Play")
-    # Создание экземпляра для хранения игровой статистики.
+    # Создание экземпляров GameStats и Scoreboard.
     stats = GameStats(ai_settings)
+    sb = Scoreboard(ai_settings, screen, stats)
     # Создание корабля.
     ship = Ship(ai_settings,screen)
     # Создание группы для хранения пуль.
@@ -27,11 +29,11 @@ def run_game():
     # Создание флота пришельцев.
     gf.create_fleet(ai_settings, screen, ship, aliens)
     while True:
-        gf.check_events(ai_settings, screen, stats, play_button, ship, aliens, bullets)
+        gf.check_events(ai_settings, screen, stats, sb, play_button, ship, aliens, bullets)
         if stats.game_active:
             ship.update()
-            gf.update_bullets(ai_settings, screen, ship, aliens, bullets)
-            gf.update_aliens(ai_settings, stats, screen, ship, aliens, bullets)
-        gf.update_screen(ai_settings, screen, stats, ship, aliens, bullets, play_button)
+            gf.update_bullets(ai_settings, screen, stats, sb, ship, aliens, bullets)
+            gf.update_aliens(ai_settings, screen, stats, sb, ship, aliens, bullets)
+        gf.update_screen(ai_settings, screen, stats, sb, ship, aliens, bullets, play_button)
 
 run_game( )
